@@ -24,31 +24,34 @@ public class Main {
 
         Random sayiUretici = new Random();
         Scanner tarayici = new Scanner(System.in);
-        int tutulan = sayiUretici.nextInt(1,100);
-        boolean sayiBilindiMi=false;
+        String cevap = "";
 
-        while (!sayiBilindiMi){
-            System.out.println("Tahmininizi girin....");
-            int tahmin = tarayici.nextInt();
-            String yon = "";
-            if (tutulan > tahmin){
-               yon="YUKARI";
+        do {
+            int tutulan = sayiUretici.nextInt(1, 100);
+            boolean sayiBilindiMi = false;
+            int tahminSayisi = 0;
+            while (!sayiBilindiMi) {
+                System.out.println("Tahmininizi girin....");
+                int tahmin = tarayici.nextInt();
+                tahminSayisi++;
+                String yon = "";
+                if (tutulan > tahmin) {
+                    yon = "YUKARI";
+                } else if (tutulan < tahmin) {
+                    yon = "Aşağı";
+                } else {
+                    sayiBilindiMi = true;
+                }
+
+                System.out.println(yon);
+
+
             }
-            else if(tutulan < tahmin){
-               yon = "Aşağı";
-            }
-            else{
-                sayiBilindiMi = true;
-            }
 
-            System.out.println(yon);
-
-
-
-        }
-
-        System.out.println("Tebrikler! Bildiniz");
-
+            System.out.println("Tebrikler!" + tahminSayisi + " denemede bildiniz");
+            System.out.println("Tekrar oynamak ister misiniz (E/H)?");
+            cevap = tarayici.next();
+        }while (cevap.equals("E"));
 
 
     }
