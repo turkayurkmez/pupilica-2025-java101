@@ -16,15 +16,22 @@ public class Main {
         *        Varsa şehri yazsın.
         *        Yoksa "bulunamadı" desin.
         * */
-        int userChoose = chooseFromMenu();
-        navigate(userChoose);
+      showMenu();
 
 
 
     }
 
+    static void showMenu(){
+        int userChoose = chooseFromMenu();
+        navigate(userChoose);
+    }
+
+
+
+
     static int chooseFromMenu(){
-        System.out.println("Lütfen aşağıdaki seçeneklerden birini işaretleyin:\n1. Plaka kaydet\n2. Plaka ara");
+        System.out.println("Lütfen aşağıdaki seçeneklerden birini işaretleyin:\n1. Plaka kaydet\n2. Plaka ara\n3. Çıkış yap");
 
         int choose = 0;
         boolean isFault = false;
@@ -34,12 +41,12 @@ public class Main {
             try {
                 Scanner scanner = new Scanner(System.in);
                 choose = scanner.nextInt();
-                if (choose > 2) {
-                    System.out.println("Seçiminiz, 1 veya 2 olmalı");
+                if (choose > 3) {
+                    System.out.println("Seçiminiz 1, 2 veya 3  olmalı");
                     isFault = true;
                 }
             } catch (Exception ex) {
-                System.out.println("Lütfen sadece 1 ya da 2 girin");
+                System.out.println("Lütfen sadece 1,2 veya 3 girin");
                 isFault = true;
             }
         }while (isFault);
@@ -55,11 +62,14 @@ public class Main {
                 getPlateDataFromUser();
                 break;
             case 2:
-                System.out.println("Plaka arama seçildi");
-
+                searchPlateInDictionary();
                 break;
+            case 3:
+                System.out.println("Çıkış yapıldı");
         }
     }
+
+
 
     static HashMap<String,String> plates = new HashMap<>();
 
@@ -95,6 +105,34 @@ public class Main {
             }
 
         }while (!isSuccess || answer.equals("E"));
+
+        showMenu();
+
+    }
+
+    private static void searchPlateInDictionary() {
+
+        String answer = "";
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Aranacak plakayı girin:");
+            String plateKey = scanner.next();
+            String cityValue = plates.get(plateKey);
+            if (cityValue == null){
+                System.out.println("Bu plakaya ait bir kayıt bulunamadı");
+               break;
+            }
+            else {
+                System.out.println("Bu plaka " + cityValue + " iline aittir");
+                System.out.println("Başka bir plaka kodu ile arama yapmak ister misiniz? E/H");
+                answer = scanner.next();
+        }
+        while (answer.equals("") ||  answer.equals("E"));
+
+        showMenu();
+
+
+
     }
 
 
